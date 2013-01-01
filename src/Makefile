@@ -10,7 +10,7 @@ NAME := PCA9685
 VERSION := $(MAJOR).$(MINOR)
 RM := rm -rf
 
-all: lib
+all: lib copy
 lib: lib$(NAME).so.$(VERSION) lib$(NAME).so
 
 lib$(NAME).so: lib$(NAME).so.$(VERSION)
@@ -22,3 +22,8 @@ lib$(NAME).so.$(VERSION): $(NAME).o
 	
 clean:
 	$(RM) *.o *.so*
+	
+copy:
+ifdef DISTPATH
+	cp lib$(NAME)* $(DISTPATH)
+endif

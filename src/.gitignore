@@ -1,2 +1,3 @@
-/libPCA9685.so.0
-/libPCA9685.so.0.1
+/*.so
+/*.so*
+/*.o
