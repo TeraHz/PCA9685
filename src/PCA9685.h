@@ -24,7 +24,7 @@
 #ifndef _PCA9685_H
 #define _PCA9685_H
 #include <inttypes.h>
-#include "I2CDevice.h"
+#include "I2C.h"
 // Register Definitions
 
 #define MODE1 0x00			//Mode  register  1
@@ -56,7 +56,7 @@ public:
 	void setPWM(uint8_t, int);
 
 private:
-	I2CDevice *i2c;
+	I2C *i2c;
 	void reset(void);
 };
 #endif
