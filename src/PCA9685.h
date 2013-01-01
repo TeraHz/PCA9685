@@ -24,7 +24,7 @@
 #ifndef _PCA9685_H
 #define _PCA9685_H
 #include <inttypes.h>
-
+#include "I2CDevice.h"
 // Register Definitions
 
 #define MODE1 0x00			//Mode  register  1
@@ -45,27 +45,19 @@
 #define ALLLED_OFF_H 0xFD	//load all the LEDn_OFF registers, byte 1 (turn 8-15 channels off)
 #define PRE_SCALE 0xFE		//prescaler for output frequency
 #define CLOCK_FREQ 25000000.0 //25MHz default osc clock
-#define BUFFER_SIZE 0x08  //1 byte buffer
 //! Main class that exports features for PCA9685 chip
 class PCA9685 {
 public:
-
 	PCA9685(int,int);
 	virtual ~PCA9685();
-	void reset(void);
+
 	void setPWMFreq(int);
 	void setPWM(uint8_t, int, int);
 	void setPWM(uint8_t, int);
+
 private:
-	int _i2caddr;
-	int _i2cbus;
-	char busfile[64];
-	uint8_t dataBuffer[BUFFER_SIZE];
-	uint8_t read_byte(int, uint8_t);
-	void write_byte(int, uint8_t, uint8_t);
-	int openfd();
-
-
+	I2CDevice *i2c;
+	void reset(void);
 };
 #endif
 

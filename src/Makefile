@@ -1,4 +1,8 @@
-CXXFLAGS := -fPIC -O3 -g -Wall -Werror
+INCLUDES := -I../../I2C/src
+LIBRARIES := -L../../I2C/src
+LIBS := -lI2C
+CXXFLAGS := -O3 -fPIC -g -Wall -Werror $(INCLUDES) $(LIBRARIES) $(LIBS)
+#CXX := g++
 CXX := arm-unknown-linux-gnueabi-g++
 MAJOR := 0
 MINOR := 1
@@ -8,12 +12,8 @@ VERSION := $(MAJOR).$(MINOR)
 lib: lib$(NAME).so.$(VERSION) lib$(NAME).so
 
 lib$(NAME).so: lib$(NAME).so.$(VERSION)
-	ldconfig -v -n .
-	ln -s lib$(NAME).so.$(MAJOR) lib$(NAME).so
+        ldconfig -v -n .
+        ln -s lib$(NAME).so.$(MAJOR) lib$(NAME).so
 
 lib$(NAME).so.$(VERSION): $(NAME).o
-	$(CXX) -shared -Wl,-soname,lib$(NAME).so.$(MAJOR) $^ -o $@
-
-clean:
-	$(RM) $(NAME)_test *.o *.so*
-
+        $(CXX) -pg -shared -Wl,-soname,lib$(NAME).so.$(MAJOR) $^ -o $@
