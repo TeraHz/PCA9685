@@ -89,3 +89,12 @@ void PCA9685::setPWM(uint8_t led, int on_value, int off_value) {
 		i2c->write_byte(LED0_OFF_L + LED_MULTIPLYER * (led - 1), off_value & 0xFF);
 		i2c->write_byte(LED0_OFF_H + LED_MULTIPLYER * (led - 1), off_value >> 8);
 }
+
+int PCA9685::getPWM(uint8_t led){
+	int ledval = 0;
+	ledval = i2c->read_byte(LED0_OFF_H + LED_MULTIPLYER * (led-1));
+	ledval = ledval & 0xf;
+	ledval <<= 8;
+	ledval += i2c->read_byte(LED0_OFF_L + LED_MULTIPLYER * (led-1));
+	return ledval;
+}
