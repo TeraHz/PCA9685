@@ -1,4 +1,4 @@
-PCM9685
+PCA9685
 =======
 
 `lib9685` is a library  for talking to the PCA9685 I<sup>2</sup>C PWM driver by NXP
